@@ -1,0 +1,59 @@
+﻿@model List<ContatoModel>
+<!-- Uma View só pode conversar com uma única model -->
+@{
+    ViewData["Title"] = "Listagem de contatos";
+}
+<!-- Mapeamos o controler e a ação -->
+<div class="d-grid gap-2 d-md-block text-center" >
+    <a class="btn btn-primary" type="button" asp-controller="Contato" asp-action="Criar">
+        
+        Criar Contato
+    </a>
+    
+</div>
+<div class="text-center">
+    <h1 class="display-4"> Listagem de Contatos: </h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Celular</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @if(Model != null && Model.Any()) {
+                foreach(ContatoModel contato in Model) {
+                    <tr>
+                        <th scope="row">@contato.Id</th>
+                        <td>@contato.Nome</td>
+                        <td>@contato.Email</td>
+                        <td>@contato.Phone</td>
+                        <td>
+                            <div class="d-grid gap-2 d-md-block">
+
+                                <a class="btn btn btn-danger"
+                                   type="button"
+                                   asp-route-id="@contato.Id"
+                                   asp-controller="Contato"
+                                   asp-action="Apagar">Apagar</a>
+
+                                <a class="btn btn btn-primary"
+                                   asp-route-id="@contato.Id"
+                                   asp-controller="Contato"
+                                   asp-action="Editar">Editar</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+
+            <!-- Cada TD é uma linha -->
+            <!-- Cada TH é uma marcação para a linha -->
+        </tbody>
+    </table>
+</div>
+
+
